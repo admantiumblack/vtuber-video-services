@@ -1,2 +1,2 @@
 # vtuber-backend-services
-vtuber backend services
+vtuber video services
