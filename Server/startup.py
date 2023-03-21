@@ -5,8 +5,6 @@ from fastapi.middleware.cors import CORSMiddleware
 ### AppCode Import ###
 
 ###############################################################################
-
-os.system("pyclean . -q")
 program = FastAPI()
 security = HTTPBearer()
 ###############################################################################
@@ -21,5 +19,3 @@ program.add_middleware(
 
 ###############################################################################
 
-
-os.system("pyclean . -q")
