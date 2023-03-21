@@ -7,5 +7,5 @@ class ServerSettings(BaseSettings):
     reload: bool = True
 
 @lru_cache
-def get_server_setting():
+def get_server_settings():
     return ServerSettings()
