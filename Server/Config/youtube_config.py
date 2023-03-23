@@ -3,7 +3,7 @@ from functools import lru_cache
 
 class YoutubeSettings(BaseSettings):
     youtube_host: str = 'youtube.com'
-    secret_key: str = ''
+    youtube_secret_key: str = ''
     
 @lru_cache
 def get_youtube_settings():
