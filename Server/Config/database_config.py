@@ -8,7 +8,10 @@ class DBSettings(BaseSettings):
     db_name: str = ''
     db_user: str = None
     db_pass: str = None
-    db_url: str = f'{db_provider}://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}'
+
+    @property
+    def db_url(self):
+        return f'{self.db_provider}://{self.db_user}:{self.db_pass}@{self.db_host}:{self.db_port}/{self.db_name}'
 
 @lru_cache
 def get_db_settings():
