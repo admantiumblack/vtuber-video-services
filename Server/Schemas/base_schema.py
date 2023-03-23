@@ -9,7 +9,7 @@ class BaseDateSchema(BaseModel):
     end_date_symbol:str = None
     
     @validator('begin_date_symbol', 'end_date_symbol')
-    def validate_symbol(self, symbol):
+    def validate_symbol(cls, symbol):
         valid_symbols = {
             '>',
             '>=',
