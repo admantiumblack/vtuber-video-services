@@ -9,6 +9,10 @@ class Vtuber(Base):
     
     channel = relationship("VtuberPlatform", back_populates='owner')
 
+    @classmethod
+    def get_vtuber(cls, db, **kwargs):
+        return db.query(Vtuber).filter_by(**kwargs).first()
+
 class VtuberPlatform(DateTimeModel):
     __tablename__ = 'vtuber_platform'
     channel_id = Column(String, primary_key=True, index=True)
