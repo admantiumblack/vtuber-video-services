@@ -2,7 +2,7 @@ from pydantic import BaseModel, validator
 from datetime import datetime
 from fastapi import HTTPException
 
-class BaseSchema(BaseModel):
+class BaseDateSchema(BaseModel):
     begin_date:datetime = None
     end_date:datetime = None
     begin_date_symbol:str = None
@@ -22,6 +22,6 @@ class BaseSchema(BaseModel):
         
         raise HTTPException(status_code=400, detail='invalid symbol for date')
 
-class YoutubeSchema(BaseSchema):
-    page_token
+class YoutubeSchema(BaseDateSchema):
+    page_token:str = None
     limit:int = 5
