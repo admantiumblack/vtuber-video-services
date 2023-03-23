@@ -1,11 +1,11 @@
 from Server.Config import get_db_settings
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from functools import lru_cache
 
 class DBConfig():
     
     def __init__(self, url, autocommit=True, autoflush=True):
-        self.metadata = MetaData()
         self.engine = create_engine(url)
         self.local_sesion = sessionmaker(autocommit=autocommit, autoflush=autoflush, bind=self.engine)
     
