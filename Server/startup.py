@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.security import HTTPBearer
 from fastapi.middleware.cors import CORSMiddleware
 ### AppCode Import ###
+from Server.Routes.videos import video_routes
 
 ###############################################################################
 program = FastAPI()
@@ -19,3 +20,4 @@ program.add_middleware(
 
 ###############################################################################
 
+program.include_router(video_routes)
