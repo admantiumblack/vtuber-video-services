@@ -5,3 +5,4 @@ SQLAlchemy==1.4.22
 uvicorn==0.15.0
 PyMySQL==1.0.2
 requests
+cryptography
