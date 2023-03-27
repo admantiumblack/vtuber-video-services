@@ -46,11 +46,15 @@ def get_video_list(db, vtuber_id, playlist_type, limit=5, parts=None, page_token
 
     res = []
     for i in videos['items']:
+        topic_detail = i.get('topicDetails')
+        topics = []
+        if topic_detail:
+            topics = topic_detail.get('topicCategories')
         video_attr = {
             'id':i['id'],
             'snippet':i['snippet'],
             'statistics':i['statistics'],
-            'topics':i.get('topicDetails'),
+            'topics':topics,
             'liveStreamingDetails': i.get('liveStreamingDetails')
         }
         res.append(video_attr)
