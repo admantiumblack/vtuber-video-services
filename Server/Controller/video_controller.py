@@ -1,6 +1,7 @@
 from Server.Models.models import Vtuber, Playlist
 from Server.Schemas.video_schema import VideoSchema
-from Server.Utils.youtube_access import get_youtube
+from Server.Utils.web_access import get_api_response
+from Server.Config import get_youtube_settings
 
 def get_youtube_playlist_items(playlist_id, limit=5, parts='',page_token=None):
     params = {
@@ -11,8 +12,8 @@ def get_youtube_playlist_items(playlist_id, limit=5, parts='',page_token=None):
         params['pageToken'] = page_token
     if parts:
         params['part'] = parts
-
-    return get_youtube('playlistItems', params)
+    youtube_config = get_youtube_settings()
+    return get_api_response(youtube_config, 'playlistItems', params)
 
 def get_youtube_videos(video_id, limit=None, parts=None, page_token=None):
     params = {
@@ -26,8 +27,8 @@ def get_youtube_videos(video_id, limit=None, parts=None, page_token=None):
 
     if page_token:
         params['pageToken'] = page_token
-    
-    return get_youtube('videos', params)
+    youtube_config = get_youtube_settings()
+    return get_api_response(youtube_config, 'videos', params)
 
 def get_video_list(db, vtuber_id, playlist_type, limit=5, parts=None, page_token=None):
     vtuber = Vtuber.get_vtuber(db, vtuber_id=vtuber_id)
