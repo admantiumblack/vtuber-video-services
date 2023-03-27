@@ -7,13 +7,11 @@ class Vtuber(Base):
     vtuber_id = Column(Integer, primary_key=True, index=True)
     vtuber_name = Column(String, primary_key=False, index=False)
     
-    channel = relationship("VtuberPlatform", back_populates='owner')
-
-    def active_channel(self, db):
-        return db.query(VtuberPlatform, StreamPlatform)\
-            .filter(VtuberPlatform.vtuber_id==self.vtuber_id, VtuberPlatform.end_date!=None)\
-            .join(StreamPlatform)\
-            .first()
+    channel = relationship(
+        "VtuberPlatform", 
+        back_populates='owner',
+        primaryjoin=f'and_(Vtuber.vtuber_id==VtuberPlatform.vtuber_id, VtuberPlatform.end_date=="{datetime(year=9999, month=12, day=31)}")'
+    )
 
     @classmethod
     def get_vtuber(cls, db, **kwargs):

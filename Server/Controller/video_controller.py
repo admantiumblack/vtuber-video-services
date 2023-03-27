@@ -35,7 +35,7 @@ def get_video_list(db, vtuber_id, playlist_type, limit=5, parts=None, page_token
     if not vtuber:
         return [], None, None
 
-    active_channel = vtuber.active_channel(db)
+    active_channel = vtuber.channel
     if not active_channel:
         return [], None, None
 
