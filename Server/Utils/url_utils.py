@@ -19,6 +19,6 @@ def create_metadata(url, params, next_token, prev_token):
         metadata['nextPageUrl'] = build_url(url, params)
     if prev_token:
         params['page_token'] = prev_token
-        metadata['nextPageUrl'] = build_url(url, params)
+        metadata['prevPageUrl'] = build_url(url, params)
     
     return metadata

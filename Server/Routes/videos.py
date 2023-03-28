@@ -20,9 +20,10 @@ def get_video_list_route(request:Request, video_query=Depends(VideoSchema), db=D
         params.get('parts'),
         params.get('page_token')
     )
+    print(next_page, prev_page)
     metadata = create_metadata(
-        str(request.url), 
-        video_query.dict(exclude_unset=True), 
+        str(request.url).split('?')[0], 
+        video_query.dict(exclude_none=True), 
         next_page, 
         prev_page
     )

@@ -41,7 +41,7 @@ def get_video_list(db, vtuber_id, playlist_type, limit=5, parts=None, page_token
 
     playlist = Playlist.get_playlist(db, channel_id=active_channel[0].channel_id, playlist_type=playlist_type)[0]
 
-    playlist_items = get_youtube_playlist_items(playlist.playlist_id, parts='contentDetails')
+    playlist_items = get_youtube_playlist_items(playlist.playlist_id, parts='contentDetails', page_token=page_token)
     video_ids = [i['contentDetails']['videoId'] for i in playlist_items['items']]
     videos = get_youtube_videos(','.join(video_ids), parts=parts)
 
@@ -59,7 +59,7 @@ def get_video_list(db, vtuber_id, playlist_type, limit=5, parts=None, page_token
             'liveStreamingDetails': i.get('liveStreamingDetails')
         }
         res.append(video_attr)
-    
+    print(playlist_items)
     next_page = playlist_items.get('nextPageToken')
-    prev_page = playlist_items.get('previousPageToken')
+    prev_page = playlist_items.get('prevPageToken')
     return res, next_page, prev_page
