@@ -39,9 +39,10 @@ def get_video_list(db, vtuber_id, playlist_type, limit=5, parts=None, page_token
     if not active_channel:
         return [], None, None
 
-    playlist = Playlist.get_playlist(db, channel_id=active_channel[0].channel_id, playlist_type=playlist_type)[0]
+    channel_id = active_channel[0].channel_id
+    channel_id = channel_id[:1] + 'U' + channel_id[1+1:]
 
-    playlist_items = get_youtube_playlist_items(playlist.playlist_id, parts='contentDetails', page_token=page_token)
+    playlist_items = get_youtube_playlist_items(channel_id, parts='contentDetails', page_token=page_token)
     video_ids = [i['contentDetails']['videoId'] for i in playlist_items['items']]
     videos = get_youtube_videos(','.join(video_ids), parts=parts)
 
