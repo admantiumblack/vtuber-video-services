@@ -1,6 +1,7 @@
 from Server.Models.base_model import Base, DateTimeModel
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
+from datetime import datetime
 
 class Vtuber(Base):
     __tablename__ = 'vtuber'
