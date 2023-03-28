@@ -27,14 +27,16 @@ def create_metadata_lim(url, limit, offset, **params):
     next_offset = offset + limit
 
     prev_offset = offset - limit
-
+    params['offset'] = next_offset
+    params['limit'] = limit
     metadata = {
-        'next_page': build_url(url, offset=next_offset, limit=limit, **param),
-        'prev_page': None
+        'nextPageUrl': build_url(url, param=params),
+        'prevPageUrl': None
     }
 
     if prev_offset >= 0:
-        metadata['prev_page'] = build_url(url, offset=prev_offset, limit=limit, **param)
+        params['offset'] = prev_offset
+        metadata['prevPageUrl'] = build_url(url, param=params)
     
     
     return metadata
