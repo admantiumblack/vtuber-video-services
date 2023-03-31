@@ -17,6 +17,18 @@ class Vtuber(Base):
     @classmethod
     def get_vtuber(cls, db, **kwargs):
         return db.query(Vtuber).filter_by(**kwargs).first()
+    
+    @classmethod
+    def get_vtubers(cls, db, limit=None, offset=None, **kwargs):
+        query = db.query(Vtuber).filter_by(**kwargs)
+
+        if limit:
+            query = query.limit()
+        
+        if offset:
+            query = query.offset(offset)
+
+        return query.all()
 
 class VtuberPlatform(DateTimeModel):
     __tablename__ = 'vtuber_platform'

@@ -6,11 +6,11 @@ from Server.Config import get_holodex_settings
 def get_schedule_list(db, vtuber_id, limit=5, parts=None, offset=0, **params):
     vtuber = Vtuber.get_vtuber(db, vtuber_id=vtuber_id)
     if not vtuber:
-        return [], None, None
+        return []
 
     active_channel = vtuber.channel
     if not active_channel:
-        return [], None, None
+        return []
     params = {
         'channel_id': active_channel[0].channel_id,
         'limit': limit,
@@ -20,3 +20,20 @@ def get_schedule_list(db, vtuber_id, limit=5, parts=None, offset=0, **params):
     }
 
     return get_api_response(get_holodex_settings(), 'live', params)
+
+def get_live_list(db, limit=None, offset=None, **params):
+    vtubers = Vtuber.get_vtubers(db, limit=limit, offset=offset, **params)
+    if not vtubers:
+        return []
+
+    channel_ids = []
+    for i in vtubers:
+        channel = i.channel
+        if channel:
+            channel_ids.append(channel[0].channel_id)
+
+    params = {
+        'channels': ','.join(channel_ids)
+    }
+
+    return get_api_response(get_holodex_settings(), 'users/live', params)

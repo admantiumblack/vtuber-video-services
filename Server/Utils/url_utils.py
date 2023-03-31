@@ -23,7 +23,12 @@ def create_metadata(url, params, next_token, prev_token):
     
     return metadata
 
-def create_metadata_lim(url, limit, offset, **params):
+def create_metadata_lim(url, limit=None, offset=0, **params):
+    if limit is None:
+        return {
+        'nextPageUrl': None,
+        'prevPageUrl': None
+    }
     next_offset = offset + limit
 
     prev_offset = offset - limit
